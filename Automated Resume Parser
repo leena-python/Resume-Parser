@@ -1,0 +1,20 @@
+import spacy
+from pdfminer.high_level import extract_text
+
+# Load English language model
+nlp = spacy.load("en_core_web_sm")
+
+# Step 1: Extract text from PDF
+pdf_path = "resume.pdf"  # Make sure this file is in the same folder
+text = extract_text(pdf_path)
+
+# Print raw text (optional)
+print("---- Extracted Text ----")
+print(text[:500])  # Print first 500 characters to check
+
+# Step 2: Process text with spaCy
+doc = nlp(text)
+
+print("\n---- Named Entities Found ----")
+for ent in doc.ents:
+    print(f"{ent.text} --> {ent.label_}")
